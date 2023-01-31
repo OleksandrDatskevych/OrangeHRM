@@ -5,7 +5,7 @@ using OrangeHRM.Common.WebElements;
 
 namespace OrangeHRM.PageObjects
 {
-    public class DashboardPage
+    public class DashboardPage : AppPage
     {
         private MyWebElement _logoutLink = new(By.PartialLinkText("Logout"));
         private MyWebElement _userDropdown = new(By.XPath("//li[contains(@class, 'userdropdown')]"));

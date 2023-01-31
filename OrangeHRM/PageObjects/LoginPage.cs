@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Common.Drivers;
 using OrangeHRM.Common.WebElements;
 
 namespace OrangeHRM.PageObjects
@@ -17,5 +16,12 @@ namespace OrangeHRM.PageObjects
         public void EnterPassword(string password) => _passwordTextBox.SendKeys(password);
 
         public void ClickSubmitButton() => _submitButton.Click();
+
+        public void LogInWithCreds(string username, string password)
+        {
+            EnterUsername(username);
+            EnterPassword(password);
+            ClickSubmitButton();
+        }
     }
 }

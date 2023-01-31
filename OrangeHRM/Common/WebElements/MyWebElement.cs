@@ -25,6 +25,12 @@ namespace OrangeHRM.Common.WebElements
 
         public void Clear() => WebElement.Clear();
 
+        public void ClearAlt()
+        {
+            WebElement.SendKeys(Keys.Control + "a");
+            WebElement.SendKeys(Keys.Backspace);
+        }
+
         public void Click()
         {
             WebDriverFactory.Driver
@@ -72,9 +78,15 @@ namespace OrangeHRM.Common.WebElements
             SendKeys(text);
         }
 
+        public void SendKeysAfterClearAlt(string text)
+        {
+            ClearAlt();
+            SendKeys(text);
+        }
+
         public bool IsDisplayed()
         {
-            WebDriverFactory.Driver.GetWebDriverWait(30, TimeSpan.FromMilliseconds(500)).Until(drv => drv.FindElements(By).Count > 0);
+            WebDriverFactory.Driver.GetWebDriverWait(10, TimeSpan.FromMilliseconds(500)).Until(drv => drv.FindElements(By).Count > 0);
 
             if (WebDriverFactory.Driver.FindElements(By).Count != 0)
             {

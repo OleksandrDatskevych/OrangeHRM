@@ -9,6 +9,7 @@ namespace OrangeHRM.Tests
         public void OneTimeSetUp()
         {
             WebDriverFactory.Driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
+            
         }
 
         [OneTimeTearDown]
