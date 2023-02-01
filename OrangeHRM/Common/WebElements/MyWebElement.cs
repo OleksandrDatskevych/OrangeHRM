@@ -8,8 +8,9 @@ namespace OrangeHRM.Common.WebElements
 {
     public class MyWebElement : IWebElement
     {
-        protected By By { get; set; }
-        protected IWebElement WebElement => WebDriverFactory.Driver.GetWebElementWhenExist(By);
+        private By By { get; }
+        public By Selector { get; }
+        private IWebElement WebElement => WebDriverFactory.Driver.GetWebElementWhenExist(By);
         public string TagName => WebElement.TagName;
         public string Text => WebElement.Text;
         public bool Enabled => WebElement.Enabled;
@@ -21,11 +22,12 @@ namespace OrangeHRM.Common.WebElements
         public MyWebElement(By by)
         {
             By = by;
+            Selector = by;
         }
 
         public void Clear() => WebElement.Clear();
 
-        public void ClearAlt()
+        public void ClearAfterCtrlABackspace()
         {
             WebElement.SendKeys(Keys.Control + "a");
             WebElement.SendKeys(Keys.Backspace);
@@ -78,9 +80,9 @@ namespace OrangeHRM.Common.WebElements
             SendKeys(text);
         }
 
-        public void SendKeysAfterClearAlt(string text)
+        public void SendKeysAfterCtrlABackspace(string text)
         {
-            ClearAlt();
+            ClearAfterCtrlABackspace();
             SendKeys(text);
         }
 

@@ -1,7 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OrangeHRM.Common.Drivers;
-using OrangeHRM.Common.Extensions;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
@@ -13,7 +10,7 @@ namespace OrangeHRM.Tests
         public void Login()
         {
             var loginPage = new LoginPage();
-            loginPage.LogInWithCreds("Admin", "admin123");
+            loginPage.LogInWithCredentials("Admin", "admin123");
         }
 
         [Test]

@@ -5,9 +5,9 @@ namespace OrangeHRM.PageObjects
 {
     public class LoginPage : BasePage
     {
-        private MyWebElement _usernameTextBox = new(By.XPath("//*[@name='username']"));
-        private MyWebElement _passwordTextBox = new(By.XPath("//*[@name='password']"));
-        private MyWebElement _submitButton = new(By.XPath("//*[@type='submit']"));
+        private readonly MyWebElement _usernameTextBox = new(By.XPath("//*[@name='username']"));
+        private readonly MyWebElement _passwordTextBox = new(By.XPath("//*[@name='password']"));
+        private readonly MyWebElement _submitButton = new(By.XPath("//*[@type='submit']"));
 
         public bool PageInitState() => _usernameTextBox.IsDisplayed() && _passwordTextBox.IsDisplayed() && _submitButton.IsDisplayed();
 
@@ -17,7 +17,7 @@ namespace OrangeHRM.PageObjects
 
         public void ClickSubmitButton() => _submitButton.Click();
 
-        public void LogInWithCreds(string username, string password)
+        public void LogInWithCredentials(string username, string password)
         {
             EnterUsername(username);
             EnterPassword(password);
