@@ -1,13 +1,12 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRM.Common.Drivers;
 using OrangeHRM.Common.WebElements;
 
 namespace OrangeHRM.PageObjects
 {
     public class EditUserPage : AddUserPage
     {
-        private readonly MyWebElement _changePasswordCheckbox = new(By.XPath("//i[contains(@class, 'oxd-icon bi-check')]"));
+        private readonly MyWebElement ChangePasswordCheckbox = new(By.XPath("//i[contains(@class, 'oxd-icon bi-check')]"));
 
-        public void ClickChangePasswordCheckbox() => _changePasswordCheckbox.Click();
+        public void ClickChangePasswordCheckbox() => ChangePasswordCheckbox.Click();
     }
 }

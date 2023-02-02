@@ -11,31 +11,17 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             loginPage.LogInWithCredentials("Admin", "admin123");
+            Assert.True(new DashboardPage().IsDashboardDisplayed());
         }
 
         [Test]
         public void Sidebar()
         {
             var appPage = new AppPage();
-            var listOfItems = new List<string>() 
-            { 
-                "Admin", 
-                "PIM",
-                "Leave",
-                "Time",
-                "Recruitment",
-                "My Info",
-                "Performance", 
-                "Dashboard",
-                "Directory", 
-                "Maintenance", 
-                "Buzz"
-            };
             var searchQuery = "an";
             var emptyQuery = "  ";
             Assert.True(appPage.SidebarInitState());
-            string List() => string.Join(",", appPage.GetListOfItemsInSidebar());
-            Assert.AreEqual(listOfItems, appPage.GetListOfItemsInSidebar(), List());
+            Assert.True(appPage.IsSidebarInDefaultState());
             appPage.EnterToSidebarSearch(searchQuery);
             Assert.True(appPage.GetListOfItemsInSidebar().All(i => i.Contains(searchQuery)));
             appPage.EnterToSidebarSearch(emptyQuery);
@@ -46,8 +32,7 @@ namespace OrangeHRM.Tests
             Assert.False(appPage.IsSidebarCollapsed());
             appPage.ClearSidebarSearch();
             appPage.ClickSidebarItem("Admin");
-            var adminPage = new AdminPage();
-            Assert.True(adminPage.PageInitState());
+            Assert.True(new AdminPage().PageInitState());
         }
     }
 }
