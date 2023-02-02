@@ -12,7 +12,7 @@ namespace OrangeHRM.PageObjects
         private readonly MyWebElement ConfirmDeleteButton = new(By.XPath("//*[contains(@class, 'orangehrm-modal-footer')]" +
                                                                           "/button[./*[contains(@class, 'bi-trash')]]"));
         private readonly MyWebElement PageHeader = new(By.XPath("//*[contains(@class, 'orangehrm-main-title') and text()='Nationalities']"));
-        private readonly MyWebElement NextPageButton = new(By.XPath("//ul[contains(@class, 'pagination')]/li[last()]/button"));
+        private readonly MyWebElement NextPageButton = new(By.XPath("//ul[contains(@class, 'pagination')]//button[./*[contains(@class, 'bi-chevron-right')]]"));
 
         private IReadOnlyList<IWebElement> NationalitiesRows => Driver.FindElements(By.XPath($"{RowLocatorTemplate}]"));
         private IReadOnlyList<IWebElement> PageButtons => Driver.FindElements(By.XPath("//ul[contains(@class, 'pagination')]" +
