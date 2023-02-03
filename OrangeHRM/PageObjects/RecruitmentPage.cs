@@ -17,6 +17,7 @@ namespace OrangeHRM.PageObjects
                                                                        "'orangehrm-main-title') and text()='Application Stage']])[1]"));
         private readonly MyWebElement ConfirmEditButton = new(By.XPath("//*[contains(@class, 'orangehrm-modal-footer')]" +
                                                                         "/button[text()=' Yes, Confirm ']"));
+        private readonly MyWebElement PassInterviewButton = new(By.XPath("//button[text()=' Mark Interview Passed ']"));
 
         private IReadOnlyList<IWebElement> RowsInTable =>
             Driver.FindElements(By.XPath("//*[@role='row' and ./ancestor::*[contains(@class, 'oxd-table-body')]]"));
@@ -43,6 +44,21 @@ namespace OrangeHRM.PageObjects
                     $"./*[count(//*[@role='columnheader' and text()='Candidate']/preceding-sibling::*) + 1]/*[text()='{candidateName}']]" +
                     "/*/descendant::button/i[contains(@class, 'bi-eye')]"));
             viewButton.Click();
+        }
+
+        private void ViewFirstScheduledInterview()
+        {
+            var viewButton = new MyWebElement(By.XPath("//*[@role='row' and ./ancestor::*[contains(@class, 'oxd-table-body')] and " +
+                                                       "./*[count(//*[@role='columnheader' and text()='Status']/preceding-sibling::*) + 1]" +
+                                                       "/*[text()='Interview Scheduled']]/*/descendant::button/i[contains(@class, 'bi-eye')]"));
+            viewButton.Click();
+        }
+
+        public void PassFirstInterview()
+        {
+            ViewFirstScheduledInterview();
+            PassInterviewButton.Click();
+            SubmitButton.Click();
         }
 
         public void EditApplication(string applicantFullName, string newFullName, string email, string jobVacancy)

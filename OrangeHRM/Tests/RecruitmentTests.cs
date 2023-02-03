@@ -28,7 +28,7 @@ namespace OrangeHRM.Tests
         public void ViewApplication()
         {
             var recruitmentPage = new RecruitmentPage();
-            var applicantFullName = "Martine Tennat";
+            var applicantFullName = "Jennifer Clinton";
             var applicantFirstName = applicantFullName.Split(' ')[0];
             var applicantLastName = applicantFullName.Split(' ')[1];
             recruitmentPage.ViewCandidateApplication(applicantFullName);
@@ -42,12 +42,20 @@ namespace OrangeHRM.Tests
         public void EditApplication()
         {
             var recruitmentPage = new RecruitmentPage();
-            var applicantFullName = "Joe Root";
+            var applicantFullName = "Phil Hughes";
             var email = "jojo2@jjba.com";
             var vacancy = "Junior Account Assistant";
             var newFullName = "Joseph Joestar";
             recruitmentPage.EditApplication(applicantFullName, newFullName, email, vacancy);
             Assert.AreEqual(applicantFullName, recruitmentPage.GetFullNameInHeader());
+            Assert.AreEqual("Success", recruitmentPage.GetSuccessMessage());
+        }
+
+        [Test]
+        public void MarkFirstInterviewPassed()
+        {
+            var recruitmentPage = new RecruitmentPage();
+            recruitmentPage.PassFirstInterview();
             Assert.AreEqual("Success", recruitmentPage.GetSuccessMessage());
         }
     }

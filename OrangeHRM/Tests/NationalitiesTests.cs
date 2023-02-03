@@ -29,7 +29,7 @@ namespace OrangeHRM.Tests
         public void DeleteSingleNationality()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationality = "Paraguayan";
+            var nationality = "Macedonian";
             nationalitiesPage.DeleteSingleNationality(nationality);
         }
 
@@ -37,7 +37,7 @@ namespace OrangeHRM.Tests
         public void DeleteMultipleNationalities()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationalities = new[] { "Slovenian", "Jordanian", "Ecuadorean" };
+            var nationalities = new[] { "British", "Somali", "Malaysian" };
             var recordsBefore = nationalitiesPage.GetNumberOfNationalities();
             nationalitiesPage.DeleteMultipleNationalities(nationalities);
             Assert.AreEqual(recordsBefore - nationalities.Length, nationalitiesPage.GetNumberOfNationalities());

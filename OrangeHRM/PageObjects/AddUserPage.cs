@@ -49,6 +49,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 UserRoleSelectDropbox.Click();
+                Driver.GetWebDriverWait().Until(_ => UserRoleOptions.Count > 0);
                 var element = UserRoleOptions.First(i => i.Text == role);
                 element.Click();
             }
@@ -63,6 +64,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 StatusSelectDropbox.Click();
+                Driver.GetWebDriverWait().Until(_ => StatusOptions.Count > 0);
                 var element = StatusOptions.First(i => i.Text == status);
                 element.Click();
             }
