@@ -143,7 +143,12 @@ namespace OrangeHRM.PageObjects
             return username;
         }
 
-        public int GetNumberOfRows() => RowsOfUsers.Count;
+        public int GetNumberOfRows()
+        {
+            Driver.GetWebDriverWait().Until(_ => RowsOfUsers.Count > 0);
+            
+            return RowsOfUsers.Count;
+        }
 
         private bool IsSuccessMessageDisplayed() => ResultMessage.IsDisplayed();
     }

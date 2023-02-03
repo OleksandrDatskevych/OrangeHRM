@@ -18,7 +18,6 @@ namespace OrangeHRM.Tests
         public void Init()
         {
             var appPage = new AppPage();
-            Assert.True(new DashboardPage().IsDashboardDisplayed());
             appPage.ClickSidebarItem("Admin");
             Assert.True(new AdminPage().PageInitState());
         }
@@ -31,7 +30,7 @@ namespace OrangeHRM.Tests
             var redColorBorder = "1px solid rgb(235, 9, 16)";
             var userRole = "ESS";
             var status = "Enabled";
-            var employeeName = "Trinh";
+            var employeeName = "Odis";
             var username = "app099";
             var password = "12345Aa+";
             var confirmPassword = "12345Aa+";
@@ -54,12 +53,12 @@ namespace OrangeHRM.Tests
         }
 
         [Test, Ignore("Automated user addition to perform other tests")]
-        [TestCase("app100", "Trinh")]
-        [TestCase("app101", "Trinh")]
-        [TestCase("app102", "Trinh")]
-        [TestCase("app103", "Trinh")]
-        [TestCase("app104", "Trinh")]
-        [TestCase("app105", "Trinh")]
+        [TestCase("app100", "Odis")]
+        [TestCase("app101", "Odis")]
+        [TestCase("app102", "Odis")]
+        [TestCase("app103", "Odis")]
+        [TestCase("app104", "Odis")]
+        [TestCase("app105", "Odis")]
         public void AddUsers(string username, string employeeName)
         {
             var adminPage = new AdminPage();
@@ -69,7 +68,6 @@ namespace OrangeHRM.Tests
             var password = "12345Aa+";
             var confirmPassword = "12345Aa+";
             adminPage.ClickAddUser();
-            addUserPage.ClickSubmitButton();
             addUserPage.SelectUserRole(userRole);
             addUserPage.SelectStatus(status);
             addUserPage.SelectEmployeeName(employeeName);

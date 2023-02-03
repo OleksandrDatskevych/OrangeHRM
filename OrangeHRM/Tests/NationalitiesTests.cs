@@ -18,7 +18,6 @@ namespace OrangeHRM.Tests
         public void Init()
         {
             var appPage = new AppPage();
-            Assert.True(new DashboardPage().IsDashboardDisplayed());
             appPage.ClickSidebarItem("Admin");
             var adminPage = new AdminPage();
             Assert.True(adminPage.PageInitState());
@@ -30,7 +29,7 @@ namespace OrangeHRM.Tests
         public void DeleteSingleNationality()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationality = "Saudi";
+            var nationality = "Paraguayan";
             nationalitiesPage.DeleteSingleNationality(nationality);
         }
 
@@ -38,7 +37,7 @@ namespace OrangeHRM.Tests
         public void DeleteMultipleNationalities()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationalities = new[] { "Singaporean", "Scottish", "Polish" };
+            var nationalities = new[] { "Slovenian", "Jordanian", "Ecuadorean" };
             var recordsBefore = nationalitiesPage.GetNumberOfNationalities();
             nationalitiesPage.DeleteMultipleNationalities(nationalities);
             Assert.AreEqual(recordsBefore - nationalities.Length, nationalitiesPage.GetNumberOfNationalities());

@@ -28,7 +28,7 @@ namespace OrangeHRM.Tests
         public void ViewApplication()
         {
             var recruitmentPage = new RecruitmentPage();
-            var applicantFullName = "Peter Smith";
+            var applicantFullName = "Martine Tennat";
             var applicantFirstName = applicantFullName.Split(' ')[0];
             var applicantLastName = applicantFullName.Split(' ')[1];
             recruitmentPage.ViewCandidateApplication(applicantFullName);
@@ -42,7 +42,7 @@ namespace OrangeHRM.Tests
         public void EditApplication()
         {
             var recruitmentPage = new RecruitmentPage();
-            var applicantFullName = "Peter Smith";
+            var applicantFullName = "Joe Root";
             var email = "jojo2@jjba.com";
             var vacancy = "Junior Account Assistant";
             var newFullName = "Joseph Joestar";

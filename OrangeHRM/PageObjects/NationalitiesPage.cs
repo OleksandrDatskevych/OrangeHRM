@@ -50,25 +50,39 @@ namespace OrangeHRM.PageObjects
 
         public void DeleteMultipleNationalities(string[] nationalities)
         {
-            var natsList = nationalities.ToList();
-            natsList.Sort();
+            var natsList = nationalities.OrderBy(e => e).ToList();
+            // counter of found elements in all pages of table
             var i = 0;
 
             while (i < natsList.Count)
             {
                 Driver.GetWebDriverWait().Until(_ => NationalitiesRows.Count > 0);
+                // counter of tries to find elements on one page of table
                 var j = 0;
 
                 while (j < natsList.Count)
                 {
+                    var locator = By.XPath($"{GetRowByNationality(natsList[j]).Selector}/descendant::label").GetLocator();
                     var checkbox = Driver.GetWebDriverWait(10, TimeSpan.FromMilliseconds(200)).Until(drv =>
-                        drv.FindElements(By.XPath($"{GetRowByNationality(natsList[j]).Selector}/descendant::label")));
+                        drv.FindElements(By.XPath($"{locator}")));
 
                     if (checkbox.Count != 0)
                     {
                         Driver.GetWebDriverWait(15, null, typeof(ElementClickInterceptedException)).Until(_ =>
                         {
-                            Actions.ScrollToElement(checkbox[0]).Click(checkbox[0]).Perform();
+                            // retry to click checkbox up to 3 times in case of StaleElementReferenceException
+                            for (var t = 0; t < 3; t++)
+                            {
+                                try
+                                {
+                                    Actions.ScrollToElement(checkbox[0]).Click(checkbox[0]).Perform();
+                                    break;
+                                }
+                                catch (StaleElementReferenceException)
+                                {
+
+                                }
+                            }
 
                             return true;
                         });
@@ -91,7 +105,13 @@ namespace OrangeHRM.PageObjects
             }
         }
 
-        public int GetNumberOfNationalities() => int.Parse(NumberOfNationalities.Text.Split('(', ')')[1]);
+        public int GetNumberOfNationalities()
+        {
+            Driver.Navigate().Refresh();
+            var result = int.Parse(NumberOfNationalities.Text.Split('(', ')')[1]);
+
+            return result;
+        }
 
         private MyWebElement GetRowByNationality(string nationality) => new(By
             .XPath($"{RowLocatorTemplate} and ./*[count( //*[@role='columnheader' and text()='Nationality']/preceding-sibling::*) +1]" +
