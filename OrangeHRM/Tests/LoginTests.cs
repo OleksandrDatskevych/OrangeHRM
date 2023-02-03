@@ -33,11 +33,12 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             var redBorder = "1px solid rgb(235, 9, 16)";
+            var errorMessage = "Required";
             Assert.True(loginPage.PageInitState());
             loginPage.ClickSubmitButton();
-            Assert.AreEqual("Required", loginPage.GetUsernameErrorMessage());
+            Assert.AreEqual(errorMessage, loginPage.GetUsernameErrorMessage());
             Assert.AreEqual(redBorder, loginPage.GetUsernameBorderColor());
-            Assert.AreEqual("Required", loginPage.GetPasswordErrorMessage());
+            Assert.AreEqual(errorMessage, loginPage.GetPasswordErrorMessage());
             Assert.AreEqual(redBorder, loginPage.GetPasswordBorderColor());
         }
     }

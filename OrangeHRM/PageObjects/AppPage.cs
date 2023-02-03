@@ -35,14 +35,7 @@ namespace OrangeHRM.PageObjects
 
         public List<string> GetListOfItemsInSidebar()
         {
-            var list = new List<string>();
-
-            for (var i = 0; i < SidebarItems.Count; i++)
-            {
-                list.Add(SidebarItems[i].FindElements(By.XPath("//span"))[i].Text);
-            }
-
-            return list;
+            return SidebarItems.Select((t, i) => t.FindElements(By.XPath("//span"))[i].Text).ToList();
         }
 
         public void ClickCollapseButton() => CollapseSidebarButton.Click();

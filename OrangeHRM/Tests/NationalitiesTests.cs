@@ -30,7 +30,7 @@ namespace OrangeHRM.Tests
         public void DeleteSingleNationality()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationality = "Liberian";
+            var nationality = "Saudi";
             nationalitiesPage.DeleteSingleNationality(nationality);
         }
 
@@ -38,8 +38,10 @@ namespace OrangeHRM.Tests
         public void DeleteMultipleNationalities()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationalities = new[] { "Albanian", "Kuwaiti", "Liberian" };
+            var nationalities = new[] { "Singaporean", "Scottish", "Polish" };
+            var recordsBefore = nationalitiesPage.GetNumberOfNationalities();
             nationalitiesPage.DeleteMultipleNationalities(nationalities);
+            Assert.AreEqual(recordsBefore - nationalities.Length, nationalitiesPage.GetNumberOfNationalities());
         }
     }
 }

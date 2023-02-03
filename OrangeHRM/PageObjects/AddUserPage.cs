@@ -77,7 +77,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 EmployeeNameTextBox.SendKeysAfterCtrlABackspace(name);
-                WebDriverFactory.Driver.GetWebDriverWait().Until(_ => EmployeeListInAutoComplete.Count > 0);
+                Driver.GetWebDriverWait().Until(_ => EmployeeListInAutoComplete.Count > 0);
                 var element = EmployeeListInAutoComplete.First(i => i.Text.Contains(name));
                 element.Click();
             }
@@ -92,7 +92,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 UsernameTextBox.SendKeysAfterCtrlABackspace(username);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => UsernameBorderColor() != "1px solid rgb(235, 9, 16)");
+                Driver.GetWebDriverWait(5).Until(_ => UsernameBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
@@ -105,7 +105,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 PasswordTextBox.SendKeysAfterClear(password);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => PasswordBorderColor() != "1px solid rgb(235, 9, 16)");
+                Driver.GetWebDriverWait(5).Until(_ => PasswordBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
@@ -118,7 +118,7 @@ namespace OrangeHRM.PageObjects
             try
             {
                 ConfirmPasswordTextBox.SendKeysAfterClear(password);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => ConfirmPasswordBorderColor() != "1px solid rgb(235, 9, 16)");
+                Driver.GetWebDriverWait(5).Until(_ => ConfirmPasswordBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
