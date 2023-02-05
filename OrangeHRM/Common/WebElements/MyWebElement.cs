@@ -36,16 +36,32 @@ namespace OrangeHRM.Common.WebElements
         public void Click()
         {
             WebDriverFactory.Driver
-                .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500),
-                typeof(ElementClickInterceptedException),
-                typeof(ElementNotInteractableException),
-                typeof(NoSuchElementException))
-                .Until(_ =>
-                {
-                    WebDriverFactory.Actions.ScrollToElement(WebElement).Click(WebElement).Perform();
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), 
+                                typeof(ElementClickInterceptedException), 
+                                typeof(ElementNotInteractableException), 
+                                typeof(NoSuchElementException))
+                            .Until(_ => 
+                            { 
+                                WebElement.Click();
 
-                    return true;
-                });
+                                return true;
+                            });
+        }
+
+        public void ScrollToClick()
+        {
+            WebDriverFactory.Driver
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), 
+                                typeof(ElementClickInterceptedException), 
+                                typeof(ElementNotInteractableException), 
+                                typeof(NoSuchElementException))
+                            .Until(_ => 
+                            {
+                                WebDriverFactory.Actions.ScrollToElement(WebElement).Perform();
+                                Click();
+
+                                return true;
+                            });
         }
 
         public IWebElement FindElement(By by) => WebElement.FindElement(by);
@@ -65,13 +81,13 @@ namespace OrangeHRM.Common.WebElements
         public void SendKeys(string text)
         {
             WebDriverFactory.Driver
-                .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), typeof(NoSuchElementException))
-                .Until(_ =>
-                {
-                    WebElement.SendKeys(text);
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), typeof(NoSuchElementException))
+                            .Until(_ => 
+                            { 
+                                WebElement.SendKeys(text);
 
-                    return true;
-                });
+                                return true;
+                            });
         }
 
         public void SendKeysAfterClear(string text)

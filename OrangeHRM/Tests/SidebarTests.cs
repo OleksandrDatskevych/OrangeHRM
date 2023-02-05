@@ -11,7 +11,8 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             loginPage.LogInWithCredentials("Admin", "admin123");
-            Assert.True(new DashboardPage().IsDashboardDisplayed());
+            var dashboardPage = new DashboardPage();
+            Assert.True(dashboardPage.IsDashboardDisplayed());
         }
 
         [Test]
@@ -31,7 +32,7 @@ namespace OrangeHRM.Tests
             appPage.ClickCollapseButton();
             Assert.False(appPage.IsSidebarCollapsed());
             appPage.ClearSidebarSearch();
-            appPage.ClickSidebarItem("Admin");
+            appPage.ClickSidebarItem<AdminPage>("Admin");
             Assert.True(new AdminPage().PageInitState());
         }
     }

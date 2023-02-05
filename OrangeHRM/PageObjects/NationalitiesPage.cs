@@ -4,7 +4,7 @@ using OrangeHRM.Common.WebElements;
 
 namespace OrangeHRM.PageObjects
 {
-    public class NationalitiesPage : BasePage
+    public class NationalitiesPage : AppPage
     {
         private const string RowLocatorTemplate = "//*[@role='row' and ./ancestor::*[contains(@class, 'oxd-table-body')]";
         private readonly MyWebElement DeleteSelectedButton = new(By.XPath("//button/i[contains(@class, 'bi-trash-fill')]"));
@@ -50,19 +50,19 @@ namespace OrangeHRM.PageObjects
 
         public void DeleteMultipleNationalities(string[] nationalities)
         {
-            var natsList = nationalities.OrderBy(e => e).ToList();
+            var nationalitiesList = nationalities.OrderBy(e => e).ToList();
             // counter of found elements in all pages of table
             var i = 0;
 
-            while (i < natsList.Count)
+            while (i < nationalitiesList.Count)
             {
                 Driver.GetWebDriverWait().Until(_ => NationalitiesRows.Count > 0);
                 // counter of tries to find elements on one page of table
                 var j = 0;
 
-                while (j < natsList.Count)
+                while (j < nationalitiesList.Count)
                 {
-                    var locator = By.XPath($"{GetRowByNationality(natsList[j]).Selector}/descendant::label").GetLocator();
+                    var locator = By.XPath($"{GetRowByNationality(nationalitiesList[j]).Selector}/descendant::label").GetLocator();
                     var checkbox = Driver.GetWebDriverWait(10, TimeSpan.FromMilliseconds(200)).Until(drv =>
                         drv.FindElements(By.XPath($"{locator}")));
 
@@ -80,7 +80,7 @@ namespace OrangeHRM.PageObjects
                                 }
                                 catch (StaleElementReferenceException)
                                 {
-
+                            
                                 }
                             }
 
@@ -94,13 +94,20 @@ namespace OrangeHRM.PageObjects
 
                 if (Driver.FindElements(By.XPath(DeleteSelectedButton.Selector)).Count != 0)
                 {
-                    DeleteSelectedButton.Click();
+                    DeleteSelectedButton.ScrollToClick();
                     ConfirmDeleteButton.Click();
                 }
 
-                if (i < natsList.Count)
+                if (i < nationalitiesList.Count)
                 {
-                    NextPageButton.Click();
+                    if (NextPageButton.IsDisplayed())
+                    {
+                        NextPageButton.Click();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }

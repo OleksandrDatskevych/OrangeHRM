@@ -33,30 +33,35 @@ namespace OrangeHRM.PageObjects
 
         public void ClearSidebarSearch() => SidebarSearchTextBox.ClearAfterCtrlABackspace();
 
-        public List<string> GetListOfItemsInSidebar()
-        {
-            return SidebarItems.Select((t, i) => t.FindElements(By.XPath("//span"))[i].Text).ToList();
-        }
+        public List<string> GetListOfItemsInSidebar() => SidebarItems.Select((t, i) => t.FindElements(By.XPath("//span"))[i].Text).ToList();
 
         public void ClickCollapseButton() => CollapseSidebarButton.Click();
 
         public bool IsSidebarCollapsed() => SidebarSearchTextBox.GetAttribute("class").Contains("toggled");
 
-        public void ClickSidebarItem(string item)
+        public T? ClickSidebarItem<T>(string itemName) where T : BasePage
         {
             var element = Driver.GetWebDriverWait().Until(drv => drv.FindElements(By.XPath("//*[@class='oxd-main-menu']//span")))
-                .Where(i => i.Text == item).ToList();
+                .Where(i => i.Text == itemName).ToList();
 
-            if (element.Count > 0)
-            {
-                element[0].Click();
-            }
-            else
+            if (element.Count == 0)
             {
                 throw new NoSuchElementException();
             }
+
+            element[0].Click();
+
+            return itemName switch
+            {
+                "Admin" => new AdminPage() as T,
+                "Recruitment" => new RecruitmentPage() as T,
+                _ => new AppPage() as T
+            };
+
         }
 
         public bool IsSidebarInDefaultState() => DefaultItemsInSidebar.SequenceEqual(GetListOfItemsInSidebar());
+
+        protected string GetCollapseButtonColor() => CollapseSidebarButton.GetCssValue("background-color");
     }
 }

@@ -4,7 +4,7 @@ using OrangeHRM.Common.WebElements;
 
 namespace OrangeHRM.PageObjects
 {
-    public class RecruitmentPage : BasePage
+    public class RecruitmentPage : AppPage
     {
         private readonly MyWebElement EditApplicationSwitch = new(By.XPath("//span[contains(@class, 'oxd-switch-input')]/parent::*"));
         private readonly MyWebElement FirstNameTextBox = new(By.XPath("//input[@name='firstName']"));

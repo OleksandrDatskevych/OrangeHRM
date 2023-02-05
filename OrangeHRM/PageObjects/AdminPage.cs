@@ -17,8 +17,8 @@ namespace OrangeHRM.PageObjects
 
         private readonly MyWebElement SearchButton = new(By.XPath("//button[@type='submit']"));
 
-        private readonly MyWebElement NationalitiesButton = new(By
-            .XPath("//li[contains(@class, 'oxd-topbar-body-nav-tab') and ./a[text()='Nationalities']]"));
+        private readonly MyWebElement NationalitiesButton = new(By.XPath("//a[text()='Nationalities']"));
+        private readonly MyWebElement CorporateBrandingButton = new(By.XPath("//a[text()='Corporate Branding']"));
 
         private IReadOnlyList<IWebElement> UserRolesOptions => Driver.FindElements(By
             .XPath($"{UserRoleDropbox.Selector}/following::*[@role='listbox']//span"));
@@ -31,7 +31,18 @@ namespace OrangeHRM.PageObjects
 
         public void ClickAddUser() => AddUserButton.Click();
 
-        public void ClickNationalitiesButton() => NationalitiesButton.Click();
+        public NationalitiesPage ClickNationalitiesButton()
+        {
+            NationalitiesButton.Click();
+            return new NationalitiesPage();
+        }
+
+        public CorporateBrandingPage ClickCorporateBrandingButton()
+        {
+            CorporateBrandingButton.Click();
+
+            return new CorporateBrandingPage();
+        }
 
         public string GetSuccessMessage()
         {

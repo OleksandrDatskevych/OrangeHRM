@@ -11,15 +11,16 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             loginPage.LogInWithCredentials("Admin", "admin123");
-            Assert.True(new DashboardPage().IsDashboardDisplayed());
+            var dashboardPage = new DashboardPage();
+            Assert.True(dashboardPage.IsDashboardDisplayed());
         }
 
         [SetUp]
         public void Init()
         {
             var appPage = new AppPage();
-            appPage.ClickSidebarItem("Admin");
-            Assert.True(new AdminPage().PageInitState());
+            var adminPage = appPage.ClickSidebarItem<AdminPage>("Admin");
+            Assert.True(adminPage.PageInitState());
         }
 
         [Test]

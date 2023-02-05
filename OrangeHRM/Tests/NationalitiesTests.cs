@@ -18,11 +18,11 @@ namespace OrangeHRM.Tests
         public void Init()
         {
             var appPage = new AppPage();
-            appPage.ClickSidebarItem("Admin");
+            appPage.ClickSidebarItem<AdminPage>("Admin");
             var adminPage = new AdminPage();
             Assert.True(adminPage.PageInitState());
-            adminPage.ClickNationalitiesButton();
-            Assert.True(new NationalitiesPage().PageInitState());
+            var nationalitiesPage = adminPage.ClickNationalitiesButton();
+            Assert.True(nationalitiesPage.PageInitState());
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace OrangeHRM.Tests
         public void DeleteMultipleNationalities()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationalities = new[] { "British", "Somali", "Malaysian" };
+            var nationalities = new[] { "Russian", "Tanzanian", "Jordanian" };
             var recordsBefore = nationalitiesPage.GetNumberOfNationalities();
             nationalitiesPage.DeleteMultipleNationalities(nationalities);
             Assert.AreEqual(recordsBefore - nationalities.Length, nationalitiesPage.GetNumberOfNationalities());
