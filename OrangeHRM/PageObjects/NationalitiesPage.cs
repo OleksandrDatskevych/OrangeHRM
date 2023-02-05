@@ -68,21 +68,9 @@ namespace OrangeHRM.PageObjects
 
                     if (checkbox.Count != 0)
                     {
-                        Driver.GetWebDriverWait(15, null, typeof(ElementClickInterceptedException)).Until(_ =>
+                        Driver.GetWebDriverWait(15, null, typeof(ElementClickInterceptedException), typeof(StaleElementReferenceException)).Until(_ =>
                         {
-                            // retry to click checkbox up to 3 times in case of StaleElementReferenceException
-                            for (var t = 0; t < 3; t++)
-                            {
-                                try
-                                {
-                                    Actions.ScrollToElement(checkbox[0]).Click(checkbox[0]).Perform();
-                                    break;
-                                }
-                                catch (StaleElementReferenceException)
-                                {
-                            
-                                }
-                            }
+                            Actions.ScrollToElement(checkbox[0]).Click(checkbox[0]).Perform();
 
                             return true;
                         });

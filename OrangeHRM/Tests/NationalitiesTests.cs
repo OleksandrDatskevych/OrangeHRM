@@ -11,7 +11,8 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             loginPage.LogInWithCredentials("Admin", "admin123");
-            Assert.True(new DashboardPage().IsDashboardDisplayed());
+            var dashboardPage = new DashboardPage();
+            Assert.True(dashboardPage.IsDashboardDisplayed());
         }
 
         [SetUp]
@@ -37,7 +38,7 @@ namespace OrangeHRM.Tests
         public void DeleteMultipleNationalities()
         {
             var nationalitiesPage = new NationalitiesPage();
-            var nationalities = new[] { "Russian", "Tanzanian", "Jordanian" };
+            var nationalities = new[] { "Scottish", "Dominican", "Togolese" };
             var recordsBefore = nationalitiesPage.GetNumberOfNationalities();
             nationalitiesPage.DeleteMultipleNationalities(nationalities);
             Assert.AreEqual(recordsBefore - nationalities.Length, nationalitiesPage.GetNumberOfNationalities());
