@@ -7,8 +7,8 @@ namespace OrangeHRM.PageObjects
 {
     public class DashboardPage : AppPage
     {
-        private readonly MyWebElement _logoutLink = new(By.PartialLinkText("Logout"));
-        private readonly MyWebElement _userDropdown = new(By.XPath("//li[contains(@class, 'userdropdown')]"));
+        private readonly MyWebElement LogoutLink = new(By.PartialLinkText("Logout"));
+        private readonly MyWebElement UserDropdown = new(By.XPath("//li[contains(@class, 'userdropdown')]"));
 
         private IReadOnlyList<IWebElement> DashboardGrid => WebDriverFactory.Driver.FindElements(By
             .XPath("//*[contains(@class, 'orangehrm-dashboard-grid')]/child::*"));
@@ -20,8 +20,8 @@ namespace OrangeHRM.PageObjects
             return DashboardGrid.Count != 0;
         }
 
-        public void ClickUserDropdown() => _userDropdown.Click();
+        public void ClickUserDropdown() => UserDropdown.Click();
 
-        public void ClickLogout() => _logoutLink.Click();
+        public void ClickLogout() => LogoutLink.Click();
     }
 }

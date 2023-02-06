@@ -7,21 +7,20 @@ namespace OrangeHRM.PageObjects
 {
     public class AddUserPage : AdminPage
     {
-        private readonly MyWebElement _userRoleSelectDropbox = new(By.XPath("//label[text()='User Role']" +
+        private readonly MyWebElement UserRoleSelectDropbox = new(By.XPath("//label[text()='User Role']" +
                                                                             "/following::*[contains(@class, 'select-wrapper')][1]"));
-        private readonly MyWebElement _statusSelectDropbox = new(By.XPath("//label[text()='Status']/following::*[contains(@class, 'select-wrapper')][1]"));
-        private readonly MyWebElement _employeeNameTextBox = new(By.XPath("//label[text()='Employee Name']/following::input[1]"));
-        private readonly MyWebElement _usernameTextBox = new(By.XPath("//label[text()='Username']/following::input[1]"));
-        private readonly MyWebElement _passwordTextBox = new(By.XPath("//label[text()='Password']/following::input[1]"));
-        private readonly MyWebElement _confirmPasswordTextBox = new(By.XPath("//label[text()='Confirm Password']/following::input[1]"));
-        private readonly MyWebElement _submitButton = new(By.XPath("//button[@type='submit']"));
-        private readonly MyWebElement _cancelButton = new(By.XPath("//button[text()=' Cancel ']"));
-        private readonly MyWebElement _userRoleError = new(By.XPath("//*[text()='User Role']/following::span[1]"));
-        private readonly MyWebElement _statusSelectError = new(By.XPath("//*[text()='Status']/following::span[1]"));
-        private readonly MyWebElement _employeeNameError = new(By.XPath("//*[text()='Employee Name']/following::span[1]"));
-        private readonly MyWebElement _usernameError = new(By.XPath("//*[text()='Username']/following::span[1]"));
-        private readonly MyWebElement _passwordError = new(By.XPath("//*[text()='Password']/following::span[1]"));
-        private readonly MyWebElement _confirmPasswordError = new(By.XPath("//*[text()='Confirm Password']/following::span[1]"));
+        private readonly MyWebElement StatusSelectDropbox = new(By.XPath("//label[text()='Status']/following::*[contains(@class, 'select-wrapper')][1]"));
+        private readonly MyWebElement EmployeeNameTextBox = new(By.XPath("//label[text()='Employee Name']/following::input[1]"));
+        private readonly MyWebElement UsernameTextBox = new(By.XPath("//label[text()='Username']/following::input[1]"));
+        private readonly MyWebElement PasswordTextBox = new(By.XPath("//label[text()='Password']/following::input[1]"));
+        private readonly MyWebElement ConfirmPasswordTextBox = new(By.XPath("//label[text()='Confirm Password']/following::input[1]"));
+        private readonly MyWebElement SubmitButton = new(By.XPath("//button[@type='submit']"));
+        private readonly MyWebElement UserRoleError = new(By.XPath("//*[text()='User Role']/following::span[1]"));
+        private readonly MyWebElement StatusSelectError = new(By.XPath("//*[text()='Status']/following::span[1]"));
+        private readonly MyWebElement EmployeeNameError = new(By.XPath("//*[text()='Employee Name']/following::span[1]"));
+        private readonly MyWebElement UsernameError = new(By.XPath("//*[text()='Username']/following::span[1]"));
+        private readonly MyWebElement PasswordError = new(By.XPath("//*[text()='Password']/following::span[1]"));
+        private readonly MyWebElement ConfirmPasswordError = new(By.XPath("//*[text()='Confirm Password']/following::span[1]"));
 
         private IReadOnlyList<IWebElement> UserRoleOptions => WebDriverFactory.Driver.FindElements(By
             .XPath("//label[text()='User Role']/following::*[@role='listbox']//span"));
@@ -39,17 +38,18 @@ namespace OrangeHRM.PageObjects
         public string EmployeeNameBorderColor() => new MyWebElement(By.XPath("(//*[contains(@class, 'oxd-autocomplete-text-input')])[1]"))
             .GetCssValue("border");
 
-        public string UsernameBorderColor() => _usernameTextBox.GetCssValue("border");
+        public string UsernameBorderColor() => UsernameTextBox.GetCssValue("border");
 
-        public string PasswordBorderColor() => _passwordTextBox.GetCssValue("border");
+        public string PasswordBorderColor() => PasswordTextBox.GetCssValue("border");
 
-        public string ConfirmPasswordBorderColor() => _confirmPasswordTextBox.GetCssValue("border");
+        public string ConfirmPasswordBorderColor() => ConfirmPasswordTextBox.GetCssValue("border");
 
         public void SelectUserRole(string role)
         {
             try
             {
-                _userRoleSelectDropbox.Click();
+                UserRoleSelectDropbox.Click();
+                Driver.GetWebDriverWait().Until(_ => UserRoleOptions.Count > 0);
                 var element = UserRoleOptions.First(i => i.Text == role);
                 element.Click();
             }
@@ -63,7 +63,8 @@ namespace OrangeHRM.PageObjects
         {
             try
             {
-                _statusSelectDropbox.Click();
+                StatusSelectDropbox.Click();
+                Driver.GetWebDriverWait().Until(_ => StatusOptions.Count > 0);
                 var element = StatusOptions.First(i => i.Text == status);
                 element.Click();
             }
@@ -77,8 +78,8 @@ namespace OrangeHRM.PageObjects
         {
             try
             {
-                _employeeNameTextBox.SendKeysAfterCtrlABackspace(name);
-                WebDriverFactory.Driver.GetWebDriverWait().Until(_ => EmployeeListInAutoComplete.Count > 0);
+                EmployeeNameTextBox.SendKeysAfterCtrlABackspace(name);
+                Driver.GetWebDriverWait().Until(_ => EmployeeListInAutoComplete.Count > 0);
                 var element = EmployeeListInAutoComplete.First(i => i.Text.Contains(name));
                 element.Click();
             }
@@ -92,8 +93,8 @@ namespace OrangeHRM.PageObjects
         {
             try
             {
-                _usernameTextBox.SendKeysAfterCtrlABackspace(username);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => UsernameBorderColor() != "1px solid rgb(235, 9, 16)");
+                UsernameTextBox.SendKeysAfterCtrlABackspace(username);
+                Driver.GetWebDriverWait(5).Until(_ => UsernameBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
@@ -105,8 +106,8 @@ namespace OrangeHRM.PageObjects
         {
             try
             {
-                _passwordTextBox.SendKeysAfterClear(password);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => PasswordBorderColor() != "1px solid rgb(235, 9, 16)");
+                PasswordTextBox.SendKeysAfterClear(password);
+                Driver.GetWebDriverWait(5).Until(_ => PasswordBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
@@ -118,8 +119,8 @@ namespace OrangeHRM.PageObjects
         {
             try
             {
-                _confirmPasswordTextBox.SendKeysAfterClear(password);
-                WebDriverFactory.Driver.GetWebDriverWait(5).Until(_ => ConfirmPasswordBorderColor() != "1px solid rgb(235, 9, 16)");
+                ConfirmPasswordTextBox.SendKeysAfterClear(password);
+                Driver.GetWebDriverWait(5).Until(_ => ConfirmPasswordBorderColor() != "1px solid rgb(235, 9, 16)");
             }
             catch (WebDriverTimeoutException)
             {
@@ -127,20 +128,18 @@ namespace OrangeHRM.PageObjects
             }
         }
 
-        public void ClickSubmitButton() => _submitButton.Click();
+        public void ClickSubmitButton() => SubmitButton.Click();
 
-        public void ClickCancelButton() => _cancelButton.Click();
+        private string GetUserRoleError() => UserRoleError.Text;
 
-        private string GetUserRoleError() => _userRoleError.Text;
+        private string GetStatusError() => StatusSelectError.Text;
 
-        private string GetStatusError() => _statusSelectError.Text;
+        private string GetEmployeeNameError() => EmployeeNameError.Text;
 
-        private string GetEmployeeNameError() => _employeeNameError.Text;
+        private string GetUsernameError() => UsernameError.Text;
 
-        private string GetUsernameError() => _usernameError.Text;
+        private string GetPasswordError() => PasswordError.Text;
 
-        private string GetPasswordError() => _passwordError.Text;
-
-        private string GetConfirmPasswordError() => _confirmPasswordError.Text;
+        private string GetConfirmPasswordError() => ConfirmPasswordError.Text;
     }
 }

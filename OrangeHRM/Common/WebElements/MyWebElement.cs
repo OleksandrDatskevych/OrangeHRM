@@ -9,7 +9,7 @@ namespace OrangeHRM.Common.WebElements
     public class MyWebElement : IWebElement
     {
         private By By { get; }
-        public By Selector { get; }
+        public string Selector { get; }
         private IWebElement WebElement => WebDriverFactory.Driver.GetWebElementWhenExist(By);
         public string TagName => WebElement.TagName;
         public string Text => WebElement.Text;
@@ -22,7 +22,7 @@ namespace OrangeHRM.Common.WebElements
         public MyWebElement(By by)
         {
             By = by;
-            Selector = by;
+            Selector = By.GetLocator();
         }
 
         public void Clear() => WebElement.Clear();
@@ -36,16 +36,32 @@ namespace OrangeHRM.Common.WebElements
         public void Click()
         {
             WebDriverFactory.Driver
-                .GetWebDriverWait(30, TimeSpan.FromMilliseconds(500),
-                typeof(ElementClickInterceptedException),
-                typeof(NoSuchElementException),
-                typeof(ElementNotInteractableException))
-                .Until(_ =>
-                {
-                    WebElement.Click();
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), 
+                                typeof(ElementClickInterceptedException), 
+                                typeof(ElementNotInteractableException), 
+                                typeof(NoSuchElementException))
+                            .Until(_ => 
+                            { 
+                                WebElement.Click();
 
-                    return true;
-                });
+                                return true;
+                            });
+        }
+
+        public void ScrollToClick()
+        {
+            WebDriverFactory.Driver
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), 
+                                typeof(ElementClickInterceptedException), 
+                                typeof(ElementNotInteractableException), 
+                                typeof(NoSuchElementException))
+                            .Until(_ => 
+                            {
+                                WebDriverFactory.Actions.ScrollToElement(WebElement).Perform();
+                                Click();
+
+                                return true;
+                            });
         }
 
         public IWebElement FindElement(By by) => WebElement.FindElement(by);
@@ -65,13 +81,13 @@ namespace OrangeHRM.Common.WebElements
         public void SendKeys(string text)
         {
             WebDriverFactory.Driver
-                .GetWebDriverWait(30, TimeSpan.FromMilliseconds(500), typeof(NoSuchElementException))
-                .Until(_ =>
-                {
-                    WebElement.SendKeys(text);
+                            .GetWebDriverWait(15, TimeSpan.FromMilliseconds(500), typeof(NoSuchElementException))
+                            .Until(_ => 
+                            { 
+                                WebElement.SendKeys(text);
 
-                    return true;
-                });
+                                return true;
+                            });
         }
 
         public void SendKeysAfterClear(string text)
@@ -88,16 +104,9 @@ namespace OrangeHRM.Common.WebElements
 
         public bool IsDisplayed()
         {
-            WebDriverFactory.Driver.GetWebDriverWait(10, TimeSpan.FromMilliseconds(500)).Until(drv => drv.FindElements(By).Count > 0);
+            var result = WebDriverFactory.Driver.GetWebDriverWait(15, TimeSpan.FromMilliseconds(500)).Until(drv => drv.FindElements(By).Count > 0);
 
-            if (WebDriverFactory.Driver.FindElements(By).Count != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result;
         }
 
         public void Submit() => WebElement.Submit();

@@ -1,9 +1,12 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class SidebarTests : BaseTest
     {
         [OneTimeSetUp]
@@ -11,31 +14,21 @@ namespace OrangeHRM.Tests
         {
             var loginPage = new LoginPage();
             loginPage.LogInWithCredentials("Admin", "admin123");
+            var dashboardPage = new DashboardPage();
+            Assert.True(dashboardPage.IsDashboardDisplayed());
         }
 
         [Test]
+        [AllureName("Sidebar test")]
+        [AllureSuite("App page")]
+        [AllureDescription("Testing sidebar search and presence of its items")]
         public void Sidebar()
         {
             var appPage = new AppPage();
-            var listOfItems = new List<string>() 
-            { 
-                "Admin", 
-                "PIM",
-                "Leave",
-                "Time",
-                "Recruitment",
-                "My Info",
-                "Performance", 
-                "Dashboard",
-                "Directory", 
-                "Maintenance", 
-                "Buzz"
-            };
             var searchQuery = "an";
             var emptyQuery = "  ";
             Assert.True(appPage.SidebarInitState());
-            string List() => string.Join(",", appPage.GetListOfItemsInSidebar());
-            Assert.AreEqual(listOfItems, appPage.GetListOfItemsInSidebar(), List());
+            Assert.True(appPage.IsSidebarInDefaultState());
             appPage.EnterToSidebarSearch(searchQuery);
             Assert.True(appPage.GetListOfItemsInSidebar().All(i => i.Contains(searchQuery)));
             appPage.EnterToSidebarSearch(emptyQuery);
@@ -45,9 +38,8 @@ namespace OrangeHRM.Tests
             appPage.ClickCollapseButton();
             Assert.False(appPage.IsSidebarCollapsed());
             appPage.ClearSidebarSearch();
-            appPage.ClickSidebarItem("Admin");
-            var adminPage = new AdminPage();
-            Assert.True(adminPage.PageInitState());
+            appPage.ClickSidebarItem<AdminPage>("Admin");
+            Assert.True(new AdminPage().PageInitState());
         }
     }
 }
