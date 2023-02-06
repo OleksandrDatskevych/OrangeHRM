@@ -1,12 +1,20 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class LoginTests : BaseTest
     {
         [Test]
+        [AllureName("Login and logout positive test")]
+        [AllureSuite("Login page")]
+        [AllureSeverity(SeverityLevel.blocker)]
+        [AllureDescription("Login with correct credentials")]
         public void LoginAndLogout()
         {
             var loginPage = new LoginPage();
@@ -20,6 +28,10 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Login negative test")]
+        [AllureSuite("Login page")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureDescription("Login with incorrect credentials")]
         public void NegativeLogin()
         {
             var loginPage = new LoginPage();
@@ -29,6 +41,10 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Login negative test")]
+        [AllureSuite("Login page")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureDescription("Login without entering credentials")]
         public void EmptyLogin()
         {
             var loginPage = new LoginPage();

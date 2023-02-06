@@ -1,9 +1,12 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class SidebarTests : BaseTest
     {
         [OneTimeSetUp]
@@ -16,6 +19,9 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Sidebar test")]
+        [AllureSuite("App page")]
+        [AllureDescription("Testing sidebar search and presence of its items")]
         public void Sidebar()
         {
             var appPage = new AppPage();

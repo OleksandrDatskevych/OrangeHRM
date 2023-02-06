@@ -1,8 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
 {
+    [AllureNUnit]
     [TestFixture]
     public class AdminTests : BaseTest
     {
@@ -23,6 +27,9 @@ namespace OrangeHRM.Tests
             Assert.True(adminPage.PageInitState());
         }
 
+        [AllureName("Add user")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Addition of new user on admin page")]
         [Test]
         public void AddUser()
         {
@@ -54,12 +61,12 @@ namespace OrangeHRM.Tests
         }
 
         [Test, Ignore("Automated user addition to perform other tests")]
-        [TestCase("app100", "Odis")]
-        [TestCase("app101", "Odis")]
-        [TestCase("app102", "Odis")]
-        [TestCase("app103", "Odis")]
-        [TestCase("app104", "Odis")]
-        [TestCase("app105", "Odis")]
+        [TestCase("app100", "Paul")]
+        [TestCase("app101", "Paul")]
+        [TestCase("app102", "Paul")]
+        [TestCase("app103", "Paul")]
+        [TestCase("app104", "Paul")]
+        [TestCase("app105", "Paul")]
         public void AddUsers(string username, string employeeName)
         {
             var adminPage = new AdminPage();
@@ -79,6 +86,9 @@ namespace OrangeHRM.Tests
             Assert.AreEqual("Success", addUserPage.GetSuccessMessage());
         }
 
+        [AllureName("Remove user by username")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Removing single user in a table of users on admin page, using their username")]
         [Test]
         public void RemoveUserByUsername()
         {
@@ -89,6 +99,9 @@ namespace OrangeHRM.Tests
             Assert.False(adminPage.IsUserInTable(columnName, userToDelete));
         }
 
+        [AllureName("Remove user by row number")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Removing single user in a table of users on admin page, using row number of a user in a table")]
         [Test]
         public void RemoveUserByRowNumber()
         {
@@ -100,6 +113,9 @@ namespace OrangeHRM.Tests
             Assert.False(adminPage.IsUserInTable(columnName, username));
         }
 
+        [AllureName("Remove multiple users")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Removing multiple users in a table of users on admin page, using their username")]
         [Test]
         public void RemoveMultipleUsers()
         {
@@ -111,6 +127,9 @@ namespace OrangeHRM.Tests
             Assert.False(adminPage.IsUserInTable(columnName, users[1]));
         }
 
+        [AllureName("Edit user")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Editing user info in a table of users on admin page, using their username")]
         [Test]
         public void EditUser()
         {
@@ -133,6 +152,9 @@ namespace OrangeHRM.Tests
             Assert.AreEqual("Success", editUserPage.GetSuccessMessage());
         }
 
+        [AllureName("Filter users by role")]
+        [AllureSuite("Admin page")]
+        [AllureDescription("Filtering users by their role in a table of users on admin page")]
         [Test]
         public void FilterByUserRole()
         {

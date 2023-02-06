@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OrangeHRM.Common.WebElements;
 using OrangeHRM.PageObjects;
@@ -6,6 +8,7 @@ using OrangeHRM.PageObjects;
 namespace OrangeHRM.Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class RecruitmentTests : BaseTest
     {
         [OneTimeSetUp]
@@ -26,6 +29,9 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("View application")]
+        [AllureSuite("Recruitment page")]
+        [AllureDescription("View application of specified person on recruitment page")]
         public void ViewApplication()
         {
             var recruitmentPage = new RecruitmentPage();
@@ -40,6 +46,9 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Edit application")]
+        [AllureSuite("Recruitment page")]
+        [AllureDescription("Edit application of specified person on recruitment page")]
         public void EditApplication()
         {
             var recruitmentPage = new RecruitmentPage();
@@ -53,6 +62,9 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Mark interview as passed")]
+        [AllureSuite("Recruitment page")]
+        [AllureDescription("Mark first scheduled interview as passed")]
         public void MarkFirstInterviewPassed()
         {
             var recruitmentPage = new RecruitmentPage();

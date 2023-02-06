@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 using OrangeHRM.PageObjects;
 
 namespace OrangeHRM.Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class CorporateBrandingTests : BaseTest
     {
         [OneTimeSetUp]
@@ -27,6 +29,9 @@ namespace OrangeHRM.Tests
         }
 
         [Test]
+        [AllureName("Color changing")]
+        [AllureSuite("Corporate branding page")]
+        [AllureDescription("Changing color scheme of web application")]
         public void ColorChanging()
         {
             var corporateBrandingPage = new CorporateBrandingPage();
