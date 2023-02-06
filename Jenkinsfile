@@ -5,17 +5,17 @@ pipeline {
     stages {
         stage('restore') {
             steps {
-                sh 'dotnet restore'
+                bat 'dotnet restore'
             }
         }
         stage('build') {
             steps {
-                sh 'dotnet build'
+                bat 'dotnet build'
             }
         }
         stage('test') {
             steps {
-                sh 'dotnet test'
+                bat 'dotnet test'
             }
         }
     }
